@@ -21,6 +21,7 @@ dist/
 coverage/
 *.log
 tmp/
+/output/pdf/
 
 # Herramientas y configuración local de asistentes de IA; no son parte del producto.
 /impeccable/
