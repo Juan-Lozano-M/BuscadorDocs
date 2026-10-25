@@ -1,0 +1,45 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\geometry{margin=2.5cm}
+\definecolor{codegray}{gray}{0.95}
+\lstset{language=R,basicstyle=\ttfamily\small,backgroundcolor=\color{codegray},frame=single,breaklines=true}
+\title{Predicción mediante minería de datos}
+\author{Unidad 1}
+\date{2026}
+\begin{document}
+\maketitle
+\section{Definición}
+La predicción usa información histórica para estimar una clase o un valor futuro. En minería de datos se construyen variables, se entrena un modelo y se evalúa su capacidad de generalizar a datos nuevos.
+\section{Flujo de trabajo}
+El flujo incluye definir la variable objetivo, dividir los datos, preparar las variables, entrenar modelos, ajustar hiperparámetros, medir el error y comunicar la incertidumbre.
+\section{Aplicaciones}
+Incluye pronóstico de ventas, demanda energética, riesgo de crédito, abandono de clientes, rendimiento académico y mantenimiento predictivo.
+\section{Tipos de predicción}
+La clasificación predice categorías, la regresión predice valores continuos y las series temporales incorporan el orden de las observaciones. La elección determina las métricas y la forma correcta de separar los datos.
+\section{Métricas}
+Para clasificación pueden usarse exactitud, precisión, sensibilidad, especificidad y F1. Para regresión son habituales MAE, RMSE y $R^2$. En pronósticos también puede usarse MAPE, teniendo cuidado con valores reales cercanos a cero.
+\section{Incertidumbre y seguimiento}
+Una predicción debe acompañarse de su incertidumbre cuando sea posible. Después del despliegue se debe vigilar el error, el cambio en la distribución de datos y la degradación del modelo.
+\section{Ejemplo en R}
+\begin{lstlisting}
+set.seed(20)
+datos <- data.frame(x1 = runif(50, 1, 10), x2 = runif(50, 5, 20))
+datos$objetivo <- 10 + 2 * datos$x1 - 0.5 * datos$x2 + rnorm(50, 0, 1)
+indices <- sample(seq_len(nrow(datos)), size = 0.8 * nrow(datos))
+modelo <- lm(objetivo ~ x1 + x2, data = datos[indices, ])
+pred <- predict(modelo, datos[-indices, ])
+error_rmse <- sqrt(mean((pred - datos$objetivo[-indices])^2))
+error_rmse
+\end{lstlisting}
+\section{Referencias iniciales}
+\begin{itemize}
+\item Namoun, A. y Alshanqiti, A. M. (2020). Predicting Student Performance Using Data Mining and Learning Analytics Techniques. DOI: \url{https://doi.org/10.3390/app11010237}.
+\item Al-Mamun, M. A. y Sohel, M. (2020). A Comprehensive Review of Load Forecasting Techniques. DOI: \url{https://doi.org/10.1109/access.2020.3010702}.
+\end{itemize}
+\end{document}

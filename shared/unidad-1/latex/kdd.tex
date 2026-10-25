@@ -1,0 +1,42 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\geometry{margin=2.5cm}
+\definecolor{codegray}{gray}{0.95}
+\lstset{language=R,basicstyle=\ttfamily\small,backgroundcolor=\color{codegray},frame=single,breaklines=true}
+\title{Procesos de minería de datos: KDD}
+\author{Unidad 1}
+\date{2026}
+\begin{document}
+\maketitle
+\section{Definición}
+El proceso KDD (Knowledge Discovery in Databases) describe la extracción de conocimiento válido, novedoso y útil a partir de datos. La minería de datos es una etapa central, pero KDD comprende todo el ciclo.
+\section{Etapas}
+Las etapas habituales son selección de datos, limpieza y preprocesamiento, transformación, minería de datos, evaluación de patrones e interpretación del conocimiento obtenido.
+\section{Aplicación}
+Un proyecto empresarial puede usar KDD para detectar transacciones anómalas: se seleccionan las transacciones, se limpian los registros, se construyen variables, se entrena un modelo y se validan las alertas.
+\section{Diferencia entre KDD y minería de datos}
+KDD es el proceso completo de descubrimiento de conocimiento. La minería de datos es la etapa que aplica algoritmos para encontrar patrones. Confundir ambos conceptos puede hacer que se ignore la selección de datos, la validación y la interpretación.
+\section{Productos de cada etapa}
+La selección produce un conjunto de trabajo; el preprocesamiento produce datos consistentes; la transformación produce variables analíticas; la minería produce patrones o modelos; y la evaluación determina cuáles son útiles para el problema.
+\section{Riesgos y buenas prácticas}
+Conviene evitar fuga de información entre entrenamiento y prueba, registrar las transformaciones, revisar valores faltantes y validar los patrones con expertos del dominio.
+\section{Ejemplo en R}
+\begin{lstlisting}
+set.seed(2)
+datos <- data.frame(x = c(rnorm(20, 2), rnorm(20, 7)), y = c(rnorm(20, 2), rnorm(20, 7)))
+seleccion <- scale(datos)
+resultado <- kmeans(seleccion, centers = 2, nstart = 20)
+resultado$cluster
+\end{lstlisting}
+\section{Referencias iniciales}
+\begin{itemize}
+\item Molina-Coronado, B. y Mori, U. (2020). Survey of Network Intrusion Detection Methods From the Perspective of the KDD Process. DOI: \url{https://doi.org/10.1109/tnsm.2020.3016246}.
+\item Ghazal, M. y Hammad, A. M. A. (2020). Application of KDD techniques in cost overrun of construction projects. DOI: \url{https://doi.org/10.1080/15623599.2020.1738205}.
+\end{itemize}
+\end{document}

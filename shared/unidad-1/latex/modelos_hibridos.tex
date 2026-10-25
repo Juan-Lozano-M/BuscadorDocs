@@ -1,0 +1,50 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\geometry{margin=2.5cm}
+\definecolor{codegray}{gray}{0.95}
+\lstset{language=R,basicstyle=\ttfamily\small,backgroundcolor=\color{codegray},frame=single,breaklines=true}
+\title{Modelos híbridos}
+\author{Unidad 1}
+\date{2026}
+\begin{document}
+\maketitle
+\section{Definición}
+Un modelo híbrido combina dos o más técnicas para aprovechar sus fortalezas. Puede integrar selección de variables con un clasificador, varios predictores en un ensemble o métodos estadísticos con aprendizaje automático.
+\section{Diseño}
+Un modelo híbrido debe justificar qué aporta cada componente, definir cómo se combinan las salidas y compararse con modelos individuales mediante la misma partición de datos.
+\section{Aplicaciones}
+Se utiliza en predicción de demanda, clasificación médica, crédito, detección de intrusiones y mantenimiento predictivo.
+\section{Tipos de combinación}
+La combinación puede ocurrir antes del modelado, mediante selección o transformación de variables; durante el modelado, mediante ensambles; o después del modelado, mediante promedio, votación o stacking de predicciones.
+\section{Ventajas y costos}
+Los modelos híbridos pueden reducir la varianza y capturar relaciones complejas, pero aumentan la complejidad, el tiempo de entrenamiento y la dificultad de explicar el resultado. La combinación debe justificarse con una comparación contra cada modelo individual.
+\section{Diseño experimental}
+Usar la misma división de datos, fijar la semilla, evitar fuga de información y reportar métricas, costo computacional y sensibilidad a cambios en los datos.
+\section{Ejemplo en R}
+\begin{lstlisting}
+set.seed(10)
+datos <- data.frame(x1 = rnorm(60), x2 = rnorm(60))
+datos$clase <- factor(ifelse(datos$x1 + datos$x2 > 0, "si", "no"))
+indices <- sample(seq_len(nrow(datos)), size = 0.7 * nrow(datos))
+entrenamiento <- datos[indices, ]
+prueba <- datos[-indices, ]
+modelo_a <- glm(clase ~ x1 + x2, data = entrenamiento, family = binomial)
+modelo_b <- glm(clase ~ x1 * x2, data = entrenamiento, family = binomial)
+prob_a <- predict(modelo_a, prueba, type = "response")
+prob_b <- predict(modelo_b, prueba, type = "response")
+prob_promedio <- (prob_a + prob_b) / 2
+prediccion <- factor(ifelse(prob_promedio > 0.5, "si", "no"), levels = levels(prueba$clase))
+mean(prediccion == prueba$clase)
+\end{lstlisting}
+\section{Referencias iniciales}
+\begin{itemize}
+\item Francis, B. K. y Babu, S. S. (2019). Predicting Academic Performance Using a Hybrid Data Mining Approach. DOI: \url{https://doi.org/10.1007/s10916-019-1295-4}.
+\item Koutanaei, F. N. y colaboradores (2015). A hybrid data mining model for credit scoring. DOI: \url{https://doi.org/10.1016/j.jretconser.2015.07.003}.
+\end{itemize}
+\end{document}

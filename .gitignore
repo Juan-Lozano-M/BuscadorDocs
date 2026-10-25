@@ -1,0 +1,41 @@
+# Local environment files and credentials. Keep only placeholder templates.
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+
+# Private keys, certificates, downloaded credentials, and local secret stores.
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*.json
+service-account*.json
+secrets/
+**/secrets/**
+
+node_modules/
+dist/
+coverage/
+*.log
+tmp/
+
+# Herramientas y configuración local de asistentes de IA; no son parte del producto.
+/impeccable/
+/Microsoft/
+/RULES.md
+/.agent/
+/.agents/
+/.claude/
+/.claude-plugin/
+/.codex/
+/.cursor/
+/.cursor-plugin/
+/.gemini/
+/.grok/
+/.opencode/
+/.pi/
+/.trae/
+/skills/

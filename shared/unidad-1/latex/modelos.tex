@@ -1,0 +1,45 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\geometry{margin=2.5cm}
+\definecolor{codegray}{gray}{0.95}
+\lstset{language=R,basicstyle=\ttfamily\small,backgroundcolor=\color{codegray},frame=single,breaklines=true}
+\title{Modelos de minería de datos}
+\author{Unidad 1}
+\date{2026}
+\begin{document}
+\maketitle
+\section{Definición}
+Un modelo de minería de datos representa relaciones aprendidas a partir de datos para describir grupos, clasificar observaciones, predecir valores o descubrir asociaciones.
+\section{Principales familias}
+La clasificación asigna categorías; la regresión estima valores numéricos; el agrupamiento descubre grupos sin etiquetas; y las reglas de asociación identifican elementos que aparecen juntos.
+\section{Evaluación}
+La evaluación debe usar datos separados del entrenamiento. Algunas métricas son exactitud, precisión, sensibilidad, especificidad, F1, error cuadrático medio y validación cruzada.
+\section{Selección del modelo}
+La selección depende del tipo de variable objetivo, el tamaño y la calidad de los datos, el costo de los errores y el nivel de interpretabilidad requerido. Una línea base sencilla permite saber si una técnica compleja aporta una mejora real.
+\section{Sobreajuste e interpretabilidad}
+Un modelo puede memorizar el conjunto de entrenamiento y fallar con datos nuevos. Para reducir el sobreajuste se usan validación cruzada, regularización, poda y separación temporal cuando los datos tienen orden cronológico. La importancia de variables y las explicaciones locales ayudan a interpretar resultados.
+\section{Comparación responsable}
+Las métricas deben calcularse sobre la misma partición y acompañarse de intervalos o variación entre particiones. También conviene revisar el desempeño por subgrupos para detectar sesgos.
+\section{Ejemplo en R}
+\begin{lstlisting}
+set.seed(4)
+datos <- data.frame(x1 = rnorm(60), x2 = rnorm(60))
+datos$clase <- factor(ifelse(datos$x1 + datos$x2 > 0, "si", "no"))
+modelo <- glm(clase ~ x1 + x2, data = datos, family = binomial)
+probabilidad <- predict(modelo, datos, type = "response")
+prediccion <- factor(ifelse(probabilidad > 0.5, "si", "no"), levels = levels(datos$clase))
+matriz <- table(real = datos$clase, predicha = prediccion)
+matriz
+\end{lstlisting}
+\section{Referencias iniciales}
+\begin{itemize}
+\item Kavakiotis, I. y colaboradores (2017). Machine Learning and Data Mining Methods in Diabetes Research. DOI: \url{https://doi.org/10.1016/j.csbj.2016.12.005}.
+\item Li, J. y colaboradores (2017). Feature Selection. DOI: \url{https://doi.org/10.1145/3136625}.
+\end{itemize}
+\end{document}

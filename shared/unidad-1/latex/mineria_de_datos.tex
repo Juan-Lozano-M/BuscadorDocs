@@ -1,0 +1,44 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\geometry{margin=2.5cm}
+\definecolor{codegray}{gray}{0.95}
+\lstset{language=R,basicstyle=\ttfamily\small,backgroundcolor=\color{codegray},frame=single,breaklines=true}
+\title{Minería de datos}
+\author{Unidad 1}
+\date{2026}
+\begin{document}
+\maketitle
+\section{Definición}
+La minería de datos es el proceso de descubrir patrones, relaciones y conocimiento útil a partir de grandes conjuntos de datos mediante métodos estadísticos, computacionales y de aprendizaje automático.
+\section{Conceptos clave}
+Incluye preparación de datos, selección de variables, clasificación, agrupamiento, reglas de asociación, regresión, evaluación e interpretación de resultados.
+\section{Aplicaciones empresariales}
+Puede apoyar la segmentación de clientes, detección de fraude, predicción de demanda, recomendación de productos y toma de decisiones basada en evidencia.
+\section{Objetivos de un proyecto}
+Un proyecto debe traducir una pregunta de negocio en una tarea analítica, identificar las variables disponibles, construir un modelo evaluable y comunicar resultados accionables. La calidad del resultado depende tanto de los datos como del método elegido.
+\section{Ventajas y limitaciones}
+Entre sus ventajas están la identificación de patrones no evidentes, la automatización de análisis repetitivos y el apoyo a decisiones. Sus limitaciones incluyen datos incompletos, sesgos de muestreo, relaciones espurias y riesgo de sobreajuste.
+\section{Flujo recomendado}
+Se recomienda definir el problema, explorar los datos, separar entrenamiento y prueba, preparar variables, comparar una línea base con modelos alternativos y documentar supuestos y métricas.
+\section{Ejemplo en R}
+\begin{lstlisting}
+# Clasificación con datos creados en memoria
+set.seed(3)
+datos <- data.frame(x1 = rnorm(50), x2 = rnorm(50))
+datos$clase <- factor(ifelse(datos$x1 - datos$x2 > 0, "positiva", "negativa"))
+modelo <- glm(clase ~ x1 + x2, data = datos, family = binomial)
+probabilidades <- predict(modelo, datos, type = "response")
+mean((probabilidades > 0.5) == (datos$clase == "positiva"))
+\end{lstlisting}
+\section{Referencias iniciales}
+\begin{itemize}
+\item Romero, C. y Ventura, S. (2020). Educational data mining and learning analytics: An updated survey. DOI: \url{https://doi.org/10.1002/widm.1355}.
+\item Chen, F. y Deng, P. (2015). Data Mining for the Internet of Things. DOI: \url{https://doi.org/10.1155/2015/431047}.
+\end{itemize}
+\end{document}

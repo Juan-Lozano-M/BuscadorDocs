@@ -1,0 +1,46 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\geometry{margin=2.5cm}
+\definecolor{codegray}{gray}{0.95}
+\lstset{language=R,basicstyle=\ttfamily\small,backgroundcolor=\color{codegray},frame=single,breaklines=true}
+\title{Metodología CRISP-DM}
+\author{Unidad 1}
+\date{2026}
+\begin{document}
+\maketitle
+\section{Definición}
+CRISP-DM (Cross-Industry Standard Process for Data Mining) es una metodología cíclica para planificar, ejecutar y evaluar proyectos de minería de datos.
+\section{Fases}
+Sus fases son comprensión del negocio, comprensión de los datos, preparación de los datos, modelado, evaluación y despliegue. El proceso puede volver a fases anteriores cuando los resultados lo requieren.
+\section{Ventajas}
+Proporciona un lenguaje común para el equipo, conecta los objetivos del negocio con el análisis y documenta decisiones técnicas y resultados.
+\section{Entregables por fase}
+La comprensión del negocio produce objetivos y criterios de éxito; la comprensión de datos produce un inventario y un informe exploratorio; la preparación produce el conjunto analítico; el modelado produce modelos entrenados; la evaluación produce una recomendación; y el despliegue produce un plan de uso y seguimiento.
+\section{Fortalezas y limitaciones}
+CRISP-DM es comprensible, iterativo y aplicable a distintos sectores. Sin embargo, requiere adaptación para proyectos con despliegue continuo, datos en tiempo real, gobernanza estricta o equipos ágiles.
+\section{Preguntas de control}
+En cada iteración conviene preguntar: ¿el objetivo sigue siendo el mismo?, ¿los datos representan el problema?, ¿el modelo supera la línea base?, ¿el resultado es interpretable? y ¿cómo se vigilará el desempeño después del despliegue?
+\section{Ejemplo en R}
+\begin{lstlisting}
+# Esqueleto de un proyecto CRISP-DM con datos creados en memoria
+set.seed(1)
+objetivo <- "Clasificar operaciones de negocio"
+datos <- data.frame(monto = runif(40, 20, 200), frecuencia = rpois(40, 4))
+datos$clase <- factor(ifelse(datos$monto + datos$frecuencia * 10 > 130, "alta", "baja"))
+modelo <- glm(clase ~ monto + frecuencia, data = datos, family = binomial)
+probabilidad <- predict(modelo, datos, type = "response")
+evaluacion <- mean((probabilidad > 0.5) == (datos$clase == "alta"))
+list(objetivo = objetivo, exactitud = evaluacion)
+\end{lstlisting}
+\section{Referencias iniciales}
+\begin{itemize}
+\item Schröer, C., Kruse, F. y Marx Gómez, J. (2021). A Systematic Literature Review on Applying CRISP-DM Process Model. DOI: \url{https://doi.org/10.1016/j.procs.2021.01.199}.
+\item Martínez-Plumed, F. y Contreras-Ochando, L. (2019). CRISP-DM Twenty Years Later. DOI: \url{https://doi.org/10.1109/tkde.2019.2962680}.
+\end{itemize}
+\end{document}
